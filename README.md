@@ -47,7 +47,6 @@ contractTitle(type: CONTRACT_TYPE): string {
 ```ts
   type configUsage = Pick<typeof CONTRACT_TYPE, 'DailyPay1' | 'DailyPay2' | 'DailyPay3' | 'OrderReward' | 'LossReward'>;
 
-  //優先度最低，預設文字，如不給任何最低預設值，可以在這設定跳過唷（理論上不會發生）
   type i18nUsage = Omit<typeof CONTRACT_TYPE, keyof configUsage>;
 
   /* 這邊為後端傳來的Config，有歷史歲月，基本上這邊不會再動了唷 */
@@ -57,8 +56,7 @@ contractTitle(type: CONTRACT_TYPE): string {
   };
 
   /* 優先度最低的 Client端多國語言，將根據i18nUsage設定對應資訊。
-    每次新增制度enum, 請在這邊填入對應i18n的key；
-    如果你真的真的不想給預設值（！？），就將例外的制度填寫到Omit中唷  */
+    如果你沒有預設值（！？），就將例外的制度填寫到Omit中唷  */
   export const i18nMap: {[key in keyof i18nUsage]: string} = {
     BetReward: proxyRewards,
     ....
